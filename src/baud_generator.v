@@ -24,7 +24,7 @@ module baud_generator(
     input wire rst_n,
     output reg baud_tick
     );
-    parameter BAUD_DIV = 6666;  // (64_000_000) / 9600 =6666.666
+    parameter BAUD_DIV = 1250;  // (12_000_000) / 9600
 
     reg [12:0] counter;  // Enough bits to hold values up to 65535
     
