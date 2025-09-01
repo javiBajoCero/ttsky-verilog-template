@@ -8,8 +8,9 @@ You can also include images in this folder and reference them in the markdown. E
 -->
 
 ## How it works
+This is just an UART + small WS2812b single led driver
 
-Listens to ascii 'MARCO' and once detected, with 10us delay (mega fast) replies with '\n\rPOLO!\n\r'
+Listens to ascii 'MARCO' and once detected, with 10us delay (mega fast) replies with '\n\rPOLO!\n\r' and blips the LED.
 
 ## How to test
 
