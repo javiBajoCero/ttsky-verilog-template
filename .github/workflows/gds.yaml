@@ -43,13 +43,20 @@ jobs:
         with:
           pdk: sky130
 
-  viewer:
-    needs: gds
-    runs-on: ubuntu-24.04
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    steps:
-      - uses: TinyTapeout/tt-gds-action/viewer@ttsky25a
-        with:
-          pdk: sky130
+    viewer:
+      needs: gds
+      runs-on: ubuntu-24.04
+      permissions:
+        contents: read
+        pages: write
+        id-token: write
+      environment:
+        name: github-pages           # ← REQUIRED for actions/deploy-pages@v4
+
+      steps:
+        - name: Configure Pages      # safe to include even if the action also does it
+          uses: actions/configure-pages@v5
+
+        - uses: TinyTapeout/tt-gds-action/viewer@ttsky25a
+          with:
+            pdk: sky130
