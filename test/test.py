@@ -42,10 +42,10 @@ async def test_baud_tick(dut):
 
 @cocotb.test()
 async def test_baud_tick_tx(dut):
-    """Test baud_tick_tx (BAUD_DIV = 5208 @ 50 MHz) on uo_out[1]"""
-    cocotb.start_soon(Clock(dut.clk, 20, units="ns").start())  # 50 MHz
+    """Test baud_tick_tx (BAUD_DIV = 6666 @ 64 MHz) on uo_out[1]"""
+    cocotb.start_soon(Clock(dut.clk, 15, units="ns").start())  # 64 MHz
 
-    dut._log.info("Testing baud_tick_tx (BAUD_DIV = 5208, ~9600 baud) on uo_out[1]")
+    dut._log.info("Testing baud_tick_tx (BAUD_DIV = 6666, ~9600 baud) on uo_out[1]")
 
     # Reset
     dut.ena.value = 1
@@ -59,7 +59,7 @@ async def test_baud_tick_tx(dut):
     # Observe baud_tick_tx from uo_out[1]
     baud_tick_count = 0
     prev = 0
-    max_cycles = 60_000  # Allow for ~10 full baud ticks (5208 * 10)
+    max_cycles = 66_660  # Allow for ~10 full baud ticks (6666 * 10)
 
     for i in range(max_cycles):
         await RisingEdge(dut.clk)
@@ -123,7 +123,7 @@ async def uart_rx_monitor(dut, expected_bits, bit_period_clk):
 async def test_uart_tx(dut):
     """Send 'MARCO' to RX and check if '\\n\\rPOLO!\\n\\r' is transmitted"""
 
-    cocotb.start_soon(Clock(dut.clk, 20, units="ns").start())  # 50 MHz
+    cocotb.start_soon(Clock(dut.clk, 15, units="ns").start())  # 64 MHz
 
     # Reset
     dut.rst_n.value = 0
@@ -137,9 +137,9 @@ async def test_uart_tx(dut):
     await ClockCycles(dut.clk, 100)
 
     # Constants for timing
-    oversample_tick_cycles = 651
+    oversample_tick_cycles = 833
     bits_per_uart_bit = 8
-    bit_duration = oversample_tick_cycles * bits_per_uart_bit  # 5208 cycles
+    bit_duration = oversample_tick_cycles * bits_per_uart_bit  # 6666 cycles
 
     # Start UART RX monitor before TX starts
     expected_bits = 9 * 10  # 9 bytes: 10 bits each (start+8data+stop)
