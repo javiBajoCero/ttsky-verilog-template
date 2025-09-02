@@ -12,7 +12,8 @@ This is just an UART + small WS2812b single led driver
 
 Listens to ascii 'MARCO' and once detected, with 10us delay (mega fast) replies with '\n\rPOLO!\n\r' and blips the LED from red to green.    
 ![Demonstration](marcopolo.gif)    
-[![FPGA tested :)  ](https://www.linkedin.com/posts/javiermu%C3%B1oz_verilog-uart-fsms-activity-7348657715633647617-CXaE/)
+[FPGA tested :)](https://www.linkedin.com/posts/javiermu%C3%B1oz_verilog-uart-fsms-activity-7348657715633647617-CXaE/)
+
 
 ## How to test
 The device will need 50Mhz clock. (provided by the RP2 )
